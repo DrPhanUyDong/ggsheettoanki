@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cấu hình hồ sơ</title>
+  <link rel="stylesheet" href="page2.css" />
+</head>
+<body>
+  <header>
+    <button id="backBtn">⬅ TRỞ VỀ</button>
+    <h1 id="profileTitle">Hồ sơ mặc định by Đông</h1>
+    <div class="header-btns">
+      <button id="editStyleBtn">🎨 SỬA STYLE</button>
+      <button id="saveBtn">💾 LƯU</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- Khối trái: Tên & Mô tả -->
+      <section class="left">
+        <h2>Thông tin mô tả</h2>
+        <div class="block">
+          <label for="profileName">Tên hồ sơ</label>
+          <input type="text" id="profileName" value="Hồ sơ mặc định by Đông">
+          
+          <label for="profileDesc">Mô tả</label>
+          <textarea id="profileDesc">Anki được tạo bởi Đông.</textarea>
+        </div>
+      </section>
+
+      <!-- Khối phải: Link Google Sheet -->
+      <section class="right">
+        <h2>Nguồn dữ liệu</h2>
+        <div class="block">
+          <div class="sub-title">Xuất bằng file/ hay link Google Sheet</div>
+
+          <h3>Đường dẫn Google Sheet</h3>
+
+          <div class="link-item">
+            <span class="label">Để chỉnh sửa</span>
+            <input type="text" id="editLink"
+              value="https://docs.google.com/spreadsheets/d/1MzPEpRX3_LnchJBJ2bpwjYVw6LRLe-lVnG8LSmg9wng/edit?gid=0#gid=0">
+            <button class="open-link" data-target="editLink">🔗</button>
+          </div>
+
+          <div class="link-item">
+            <span class="label">Publish to web</span>
+            <input type="text" id="pubLink"
+              value="https://docs.google.com/spreadsheets/d/e/2PACX-1vTc9RnKiuNXGcuD8iDbZqAmSFfd9dugerzV-feUkp8gfJbRhxhjdZu7kjkLoVU42v2ok76wneDM0Fyh/pubhtml">
+            <button class="open-link" data-target="pubLink">🌍</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bảng mã hoá cột -->
+    <section class="table-section">
+      <h2>Bảng mã hoá cột (tự động lấy từ Sheet)</h2>
+      <table id="columnTable">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên cột</th>
+            <th>Copy xuống</th>
+            <th>Thay thế</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4">Đang tải dữ liệu từ Google Sheet...</td></tr>
+        </tbody>
+      </table>
+      <p class="note">
+        * Bảng sẽ hiển thị cột thực tế từ Google Sheet public.<br>
+        * Bạn có thể tick checkbox để copy hoặc thay thế khi tạo Anki.
+      </p>
+    </section>
+  </main>
+
+  <footer>© 2025 by Đông</footer>
+
+  <script src="page2.js"></script>
+</body>
+</html>
