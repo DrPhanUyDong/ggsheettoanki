@@ -1,4 +1,4 @@
-// Lấy ID khung từ URL
+// Lấy ID khung từ URL (mặc định 'default')
 const params = new URLSearchParams(window.location.search);
 const khungId = params.get("id") || "default";
 
@@ -17,67 +17,106 @@ if (!hoSoData[khungId]) {
   localStorage.setItem("hoSoData", JSON.stringify(hoSoData));
 }
 
+// Tham chiếu DOM
+const profileTitle = document.getElementById("profileTitle");
+const profileNameInput = document.getElementById("profileName");
+const profileDescInput = document.getElementById("profileDesc");
+const editLinkInput = document.getElementById("editLink");
+const pubLinkInput = document.getElementById("pubLink");
+const saveBtn = document.getElementById("saveBtn");
+const backBtn = document.getElementById("backBtn");
+const tbody = document.querySelector("#columnTable tbody");
+
 // Load dữ liệu hồ sơ vào form
-document.getElementById("profileTitle").innerText = hoSoData[khungId].tenHoSo;
-document.getElementById("profileName").value = hoSoData[khungId].tenHoSo;
-document.getElementById("profileDesc").value = hoSoData[khungId].moTa;
-document.getElementById("editLink").value = hoSoData[khungId].editLink;
-document.getElementById("pubLink").value = hoSoData[khungId].pubLink;
+profileTitle.innerText = hoSoData[khungId].tenHoSo;
+profileNameInput.value = hoSoData[khungId].tenHoSo;
+profileDescInput.value = hoSoData[khungId].moTa;
+editLinkInput.value = hoSoData[khungId].editLink;
+pubLinkInput.value = hoSoData[khungId].pubLink;
 
-// Load bảng mã hoá
-const loadBangMaHoa = () => {
-  const tbody = document.querySelector("#columnTable tbody");
-  tbody.innerHTML = "";
-  const data = hoSoData[khungId].bangMaHoa.length ? hoSoData[khungId].bangMaHoa : [
-    ["Câu hỏi", false, false],
-    ["A", false, false],
-    ["B", false, false],
-    ["C", false, false],
-    ["D", false, false],
-    ["Đáp án", false, false],
-    ["Giải thích", false, false],
-    ["Bài học", false, false]
-  ];
+// Cập nhật tiêu đề khi gõ vào input Tên hồ sơ
+profileNameInput.addEventListener("input", () => {
+  profileTitle.innerText = profileNameInput.value || "Hồ sơ mặc định by Đông";
+});
 
-  data.forEach((row, index) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${row[0]}</td>
-      <td><input type="checkbox" ${row[1] ? "checked" : ""}></td>
-      <td><input type="checkbox" ${row[2] ? "checked" : ""}></td>
-    `;
-    tbody.appendChild(tr);
-  });
-};
-loadBangMaHoa();
+// Hàm fetch dữ liệu từ Google Sheet public và render bảng mã hoá
+async function loadBangMaHoaTuSheet() {
+  const pubUrl = pubLinkInput.value;
+  tbody.innerHTML = "<tr><td colspan='4'>Đang tải dữ liệu từ Google Sheet...</td></tr>";
+
+  try {
+    const res = await fetch(pubUrl);
+    const text = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html");
+    const table = doc.querySelector("table");
+
+    if (!table) {
+      tbody.innerHTML = "<tr><td colspan='4'>Không tìm thấy bảng trên Sheet</td></tr>";
+      return;
+    }
+
+    // Lấy dòng đầu tiên làm tên cột
+    const firstRow = table.querySelector("tr");
+    if (!firstRow) return;
+    const cols = Array.from(firstRow.querySelectorAll("td")).map(td => td.innerText.trim());
+
+    // Render vào bảng mã hoá
+    tbody.innerHTML = "";
+    cols.forEach((colName, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${colName}</td>
+        <td><input type="checkbox" ${hoSoData[khungId].bangMaHoa[index]?.[1] ? "checked" : ""}></td>
+        <td><input type="checkbox" ${hoSoData[khungId].bangMaHoa[index]?.[2] ? "checked" : ""}></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+  } catch (err) {
+    console.error("Lỗi load Sheet:", err);
+    tbody.innerHTML = "<tr><td colspan='4'>Lỗi tải dữ liệu</td></tr>";
+  }
+}
+
+// Gọi khi load trang
+loadBangMaHoaTuSheet();
 
 // Nút lưu
-document.getElementById("saveBtn").addEventListener("click", () => {
-  const tbody = document.querySelector("#columnTable tbody");
+saveBtn.addEventListener("click", () => {
   const bangMaHoa = [];
   tbody.querySelectorAll("tr").forEach(tr => {
     const cells = tr.querySelectorAll("td");
     bangMaHoa.push([
-      cells[1].innerText,
+      cells[1].innerText,                  // tên cột
       cells[2].querySelector("input").checked,
       cells[3].querySelector("input").checked
     ]);
   });
 
   hoSoData[khungId] = {
-    tenHoSo: document.getElementById("profileName").value,
-    moTa: document.getElementById("profileDesc").value,
-    editLink: document.getElementById("editLink").value,
-    pubLink: document.getElementById("pubLink").value,
+    tenHoSo: profileNameInput.value,
+    moTa: profileDescInput.value,
+    editLink: editLinkInput.value,
+    pubLink: pubLinkInput.value,
     bangMaHoa: bangMaHoa
   };
   localStorage.setItem("hoSoData", JSON.stringify(hoSoData));
-  document.getElementById("profileTitle").innerText = hoSoData[khungId].tenHoSo;
-  alert("Đã lưu hồ sơ!");
+  profileTitle.innerText = profileNameInput.value || "Hồ sơ mặc định by Đông";
+  alert("✅ Đã lưu hồ sơ và bảng mã hoá!");
 });
 
 // Nút quay lại
-document.getElementById("backBtn").addEventListener("click", () => {
+backBtn.addEventListener("click", () => {
   window.history.back();
+});
+
+// Nút mở link
+document.querySelectorAll(".open-link").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.target;
+    const url = document.getElementById(target).value;
+    if (url) window.open(url, "_blank");
+  });
 });
