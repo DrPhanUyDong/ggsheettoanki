@@ -57,7 +57,7 @@
 
     <!-- Bảng mã hoá cột -->
     <section class="table-section">
-      <h2>Bảng mã hoá cột</h2>
+      <h2>Bảng mã hoá cột (tự động lấy từ Sheet)</h2>
       <table id="columnTable">
         <thead>
           <tr>
@@ -68,20 +68,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>Câu hỏi</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-          <tr><td>2</td><td>A</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-          <tr><td>3</td><td>B</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-          <tr><td>4</td><td>C</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-          <tr><td>5</td><td>D</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-          <tr><td>6</td><td>Đáp án</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-          <tr><td>7</td><td>Giải thích</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
-          <tr><td>8</td><td>Bài học</td><td><input type="checkbox"></td><td><input type="checkbox"></td></tr>
+          <tr><td colspan="4">Đang tải dữ liệu từ Google Sheet...</td></tr>
         </tbody>
       </table>
       <p class="note">
-        * Câu hỏi không có ở mặt trước không có ở mặt sau.<br>
-        * Đáp án không có ở mặt sau.<br>
-        * Giải thích...
+        * Bảng sẽ hiển thị cột thực tế từ Google Sheet public.<br>
+        * Bạn có thể tick checkbox để copy hoặc thay thế khi tạo Anki.
       </p>
     </section>
   </main>
@@ -90,3 +82,4 @@
 
   <script src="page2.js"></script>
 </body>
+</html>
