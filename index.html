@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sheet → Anki</title>
+  <style>
+    body {
+      background: #0a0a1a;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #4FC3F7;
+    }
+    .link-section {
+      margin-bottom: 30px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .link-title {
+      font-size: 18px;
+      color: #80DEEA;
+      margin-bottom: 10px;
+    }
+    a {
+      display: inline-block;
+      background: #2196F3;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+    a:hover {
+      background: #64B5F6;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 14px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Đường dẫn Google Sheet</h1>
+
+  <div class="link-section">
+    <div class="link-title">1️⃣ Để chỉnh sửa</div>
+    <input type="text" value="https://docs.google.com/spreadsheets/d/1WLe9l-qzQkCY6mCE9W4RTG1a_LutD6J21apqQbIXCdg/edit#gid=0" readonly>
+    <br><br>
+    <a href="https://docs.google.com/spreadsheets/d/1WLe9l-qzQkCY6mCE9W4RTG1a_LutD6J21apqQbIXCdg/edit#gid=0" target="_blank">🔗 Mở trong tab mới</a>
+  </div>
+
+  <div class="link-section">
+    <div class="link-title">2️⃣ Publish to Web (Dữ liệu public cho Anki)</div>
+    <input type="text" value="https://docs.google.com/spreadsheets/d/e/2PACX-1vQPTtZRxFsaxSLz_Vjh7V-M6jitFNJcOnibnJZCs3rZBPGkolDxSchj00jzNz_zyyzT5Twtw4lPYU/pubhtml" readonly>
+    <br><br>
+    <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQPTtZRxFsaxSLz_Vjh7V-M6jitFNJcOnibnJZCs3rZBPGkolDxSchj00jzNz_zyyzT5Twtw4lPYU/pubhtml" target="_blank">🌍 Mở bản public</a>
+  </div>
+</body>
+</html>
