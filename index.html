@@ -3,30 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hồ sơ Anki</title>
+  <title>Hồ sơ</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Hồ sơ</h1>
-    <div class="create" onclick="createProfile()">+ TẠO HỒ SƠ MỚI</div>
+    <span>📘 Hồ sơ</span>
+    <button id="addCardBtn">➕ Tạo hồ sơ mới</button>
   </header>
 
-  <main id="cardContainer">
-    <div class="card">
-      <div class="title"><input type="text" value="Sinh lý" /></div>
-      <div class="subtitle">by Dr Dong</div>
-      <button class="anki" onclick="createAnki(this)">▶️ TẠO ANKI</button>
-      <button class="copy" onclick="duplicateCard(this)">📋 SAO CHÉP</button>
-      <button class="sheet" onclick="openSheet()">🟢 GG SHEET</button>
-      <button class="delete" onclick="deleteCard(this)">🗑️ XÓA</button>
+  <main>
+    <div class="grid" id="cardContainer">
+      <!-- Hồ sơ mặc định -->
+      <div class="card" onclick="openDetail(event, 'Hồ sơ mặc định')">
+        <h2>Hồ sơ mặc định</h2>
+        <p>Anki được tạo bởi Đông</p>
+        <div class="card-buttons">
+          <button class="btn btn-anki" onclick="createAnki(event, 'Hồ sơ mặc định')">
+            <span class="icon">▶</span> TẠO ANKI
+          </button>
+          <button class="btn btn-copy" onclick="copyCard(event, 'Hồ sơ mặc định')">
+            <span class="icon">⧉</span> SAO CHÉP
+          </button>
+          <button class="btn btn-sheet" onclick="openSheet(event)">
+            <span class="google-g">G</span> GG SHEET
+          </button>
+          <button class="btn btn-delete" onclick="deleteCard(event, this)">
+            <span class="icon">🗑</span> XÓA
+          </button>
+        </div>
+      </div>
     </div>
   </main>
 
-  <footer>
-    © 2025 GGSHEET TO ANKI · Dr Dong
-  </footer>
-
+  <footer>© 2025 by Dr Phan Uy Dong</footer>
   <script src="script.js"></script>
 </body>
 </html>
