@@ -1,71 +1,34 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Sheet → Anki</title>
-  <style>
-    body {
-      background: #0a0a1a;
-      color: #ffffff;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 20px;
-    }
-    h1 {
-      color: #4FC3F7;
-    }
-    .link-section {
-      margin-bottom: 30px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .link-title {
-      font-size: 18px;
-      color: #80DEEA;
-      margin-bottom: 10px;
-    }
-    a {
-      display: inline-block;
-      background: #2196F3;
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      transition: 0.2s;
-    }
-    a:hover {
-      background: #64B5F6;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      font-size: 14px;
-      margin-top: 6px;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hồ sơ — Mẫu đánh trắc nghiệm</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <h1>Đường dẫn Google Sheet</h1>
+<body class="app-dark">
+  <header class="topbar">
+    <button class="hamburger" aria-label="menu">☰</button>
+    <div class="top-title">Hồ sơ</div>
+    <button class="create-btn" id="createDefault">+ MẪU ĐÁNH TRẮC NGHIỆM</button>
+  </header>
 
-  <div class="link-section">
-    <div class="link-title">1️⃣ Để chỉnh sửa</div>
-    <input type="text" value="https://docs.google.com/spreadsheets/d/1WLe9l-qzQkCY6mCE9W4RTG1a_LutD6J21apqQbIXCdg/edit#gid=0" readonly>
-    <br><br>
-    <a href="https://docs.google.com/spreadsheets/d/1WLe9l-qzQkCY6mCE9W4RTG1a_LutD6J21apqQbIXCdg/edit#gid=0" target="_blank">🔗 Mở trong tab mới</a>
-  </div>
+  <main class="list-wrap">
+    <div id="searchBar" class="search-row">
+      <input id="searchInput" placeholder="Tìm kiếm hồ sơ..." />
+    </div>
 
-  <div class="link-section">
-    <div class="link-title">2️⃣ Publish to Web (Dữ liệu public cho Anki)</div>
-    <input type="text" value="https://docs.google.com/spreadsheets/d/e/2PACX-1vQPTtZRxFsaxSLz_Vjh7V-M6jitFNJcOnibnJZCs3rZBPGkolDxSchj00jzNz_zyyzT5Twtw4lPYU/pubhtml" readonly>
-    <br><br>
-    <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQPTtZRxFsaxSLz_Vjh7V-M6jitFNJcOnibnJZCs3rZBPGkolDxSchj00jzNz_zyyzT5Twtw4lPYU/pubhtml" target="_blank">🌍 Mở bản public</a>
-  </div>
+    <div id="cards" class="cards-grid">
+      <!-- cards injected by script.js -->
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active">Hồ sơ</div>
+    <div class="nav-item">Cài đặt</div>
+    <div class="nav-item">Đóng góp</div>
+  </nav>
+
+  <script src="script.js"></script>
 </body>
 </html>
