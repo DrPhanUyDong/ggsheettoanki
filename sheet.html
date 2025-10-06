@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cấu hình mẫu — Google Sheet → Anki</title>
+
+  <!-- anki-apkg-export (browser build) -->
+  <script src="https://cdn.jsdelivr.net/npm/anki-apkg-export@3.0.0/dist/index.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="app-dark">
+  <header class="topbar">
+    <button class="back" id="backBtn">← TRỞ VỀ</button>
+    <div class="top-title" id="templateTitle">Cấu hình mẫu</div>
+    <button class="create-btn" id="saveAllBtn">💾 LƯU</button>
+  </header>
+
+  <main class="sheet-main">
+    <section class="panel">
+      <h3>Thông tin mẫu</h3>
+      <input id="tplName" placeholder="Tên mẫu (ví dụ: Hồ sơ mặc định by Dr Dong)" />
+      <input id="deckName" placeholder="Tên deck khi tạo Anki (ví dụ: Nhi khoa 2025)" />
+      <textarea id="tplDesc" rows="2" placeholder="Mô tả ngắn"></textarea>
+    </section>
+
+    <section class="panel">
+      <h3>Đường dẫn Google Sheet</h3>
+      <label>Link chỉnh sửa (Edit)</label>
+      <div class="row">
+        <input id="editLink" placeholder="https://docs.google.com/spreadsheets/d/..." />
+        <button id="openEdit" class="small">Mở</button>
+      </div>
+
+      <label>Link Publish to web (dùng để fetch CSV)</label>
+      <div class="row">
+        <input id="publicLink" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" />
+        <button id="openPublic" class="small">Mở</button>
+      </div>
+
+      <div class="row">
+        <button id="saveLinks" class="normal">💾 Lưu link</button>
+        <button id="previewSheet" class="normal">🔎 Preview</button>
+      </div>
+
+      <div id="status" class="status">Chưa tải dữ liệu</div>
+      <div id="previewWrap"></div>
+    </section>
+
+    <section class="panel">
+      <h3>Trình chỉnh sửa mẫu</h3>
+      <div class="edit-buttons">
+        <button class="mini" data-target="replace">THAY THẾ</button>
+        <button class="mini" data-target="front">FRONT.HTML</button>
+        <button class="mini" data-target="back">BACK.HTML</button>
+        <button class="mini" data-target="style">STYLE.CSS</button>
+      </div>
+
+      <div id="editorArea">
+        <textarea id="replaceRules" rows="6" placeholder="Quy tắc thay thế (mỗi dòng: find => replace)"></textarea>
+      </div>
+
+      <div style="margin-top:10px">
+        <button id="saveTemplate" class="normal">💾 Lưu template</button>
+        <button id="exportApkg" class="normal">📦 Xuất .apkg (từ public link)</button>
+      </div>
+
+      <div class="small-note">Ghi chú: trong FRONT/BACK bạn dùng {{col1}}, {{col2}}, ... để chèn cột CSV. Ví dụ: &lt;div&gt;{{col1}}&lt;/div&gt;</div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
