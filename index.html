@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hồ sơ — Mẫu đánh trắc nghiệm</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hồ sơ Anki</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="app-dark">
-  <header class="topbar">
-    <button class="hamburger" aria-label="menu">☰</button>
-    <div class="top-title">Hồ sơ</div>
-    <button class="create-btn" id="createDefault">+ MẪU ĐÁNH TRẮC NGHIỆM</button>
+<body>
+  <header>
+    <h1>Hồ sơ</h1>
+    <div class="create" onclick="createProfile()">+ TẠO HỒ SƠ MỚI</div>
   </header>
 
-  <main class="list-wrap">
-    <div id="searchBar" class="search-row">
-      <input id="searchInput" placeholder="Tìm kiếm hồ sơ..." />
-    </div>
-
-    <div id="cards" class="cards-grid">
-      <!-- cards injected by script.js -->
+  <main id="cardContainer">
+    <div class="card">
+      <div class="title"><input type="text" value="Sinh lý" /></div>
+      <div class="subtitle">by Dr Dong</div>
+      <button class="anki" onclick="createAnki(this)">▶️ TẠO ANKI</button>
+      <button class="copy" onclick="duplicateCard(this)">📋 SAO CHÉP</button>
+      <button class="sheet" onclick="openSheet()">🟢 GG SHEET</button>
+      <button class="delete" onclick="deleteCard(this)">🗑️ XÓA</button>
     </div>
   </main>
 
-  <nav class="bottom-nav">
-    <div class="nav-item active">Hồ sơ</div>
-    <div class="nav-item">Cài đặt</div>
-    <div class="nav-item">Đóng góp</div>
-  </nav>
+  <footer>
+    © 2025 GGSHEET TO ANKI · Dr Dong
+  </footer>
 
   <script src="script.js"></script>
 </body>
