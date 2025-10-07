@@ -43,7 +43,6 @@ function renderHoSoList() {
     // 📦 Nút tạo Anki
     card.querySelector(".btn-create").addEventListener("click", () => {
       alert(`🚀 Tính năng tạo Anki cho "${hs.tenHoSo}" sẽ được gọi ở đây.`);
-      // 👉 TODO: Gọi hàm tạo .apkg từ dữ liệu đã cấu hình
     });
 
     // 🔗 Nút mở Google Sheet
