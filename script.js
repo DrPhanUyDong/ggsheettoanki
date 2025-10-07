@@ -1,37 +1,95 @@
-// Hàm mở Trang 2 với id hồ sơ
-function openConfig(khungId) {
-  window.open(`page2.html?id=${khungId}`, "_blank");
+// 🔄 Load danh sách hồ sơ từ localStorage
+let hoSoData = JSON.parse(localStorage.getItem("hoSoData")) || {};
+
+// 🔍 DOM
+const hoSoContainer = document.getElementById("hoSoContainer");
+const taoHoSoBtn = document.getElementById("taoHoSoBtn");
+
+// ✅ Hàm render toàn bộ danh sách hồ sơ
+function renderHoSoList() {
+  hoSoContainer.innerHTML = "";
+
+  const keys = Object.keys(hoSoData);
+  if (keys.length === 0) {
+    hoSoContainer.innerHTML = "<p style='text-align:center;color:#888;'>📂 Chưa có hồ sơ nào. Hãy tạo mới!</p>";
+    return;
+  }
+
+  keys.forEach(khungId => {
+    const hs = hoSoData[khungId];
+
+    const card = document.createElement("div");
+    card.className = "hoso-card";
+    card.dataset.id = khungId;
+
+    card.innerHTML = `
+      <div class="hoso-main">
+        <h3>${hs.tenHoSo || "Hồ sơ chưa đặt tên"}</h3>
+        <p>${hs.moTa || ""}</p>
+      </div>
+      <div class="hoso-actions">
+        <button class="btn-create">📦 Tạo Anki</button>
+        <button class="btn-sheet">🔗 Google Sheet</button>
+        <button class="btn-copy">📄 Sao chép</button>
+        <button class="btn-delete">🗑️ Xoá</button>
+      </div>
+    `;
+
+    // 👉 Click vùng chính mở trang 2
+    card.querySelector(".hoso-main").addEventListener("click", () => {
+      window.location.href = `page2.html?id=${khungId}`;
+    });
+
+    // 📦 Nút tạo Anki
+    card.querySelector(".btn-create").addEventListener("click", () => {
+      alert(`🚀 Tính năng tạo Anki cho "${hs.tenHoSo}" sẽ được gọi ở đây.`);
+      // 👉 TODO: Gọi hàm tạo .apkg từ dữ liệu đã cấu hình
+    });
+
+    // 🔗 Nút mở Google Sheet
+    card.querySelector(".btn-sheet").addEventListener("click", () => {
+      if (hs.editLink) {
+        window.open(hs.editLink, "_blank");
+      } else {
+        alert("❌ Hồ sơ này chưa có link Google Sheet!");
+      }
+    });
+
+    // 📄 Nút sao chép hồ sơ
+    card.querySelector(".btn-copy").addEventListener("click", () => {
+      const newId = `hoso_${Date.now()}`;
+      hoSoData[newId] = JSON.parse(JSON.stringify(hs));
+      hoSoData[newId].tenHoSo += " (bản sao)";
+      localStorage.setItem("hoSoData", JSON.stringify(hoSoData));
+      renderHoSoList();
+    });
+
+    // 🗑️ Nút xoá hồ sơ
+    card.querySelector(".btn-delete").addEventListener("click", () => {
+      if (confirm(`Bạn có chắc muốn xoá hồ sơ "${hs.tenHoSo}" không?`)) {
+        delete hoSoData[khungId];
+        localStorage.setItem("hoSoData", JSON.stringify(hoSoData));
+        renderHoSoList();
+      }
+    });
+
+    hoSoContainer.appendChild(card);
+  });
 }
 
-// Ngăn click nút bên trong khung lan lên div.card
-document.querySelectorAll('.card-buttons button').forEach(btn => {
-  btn.addEventListener('click', function(e){
-    e.stopPropagation();
-  });
+// ✅ Nút tạo hồ sơ mới
+taoHoSoBtn.addEventListener("click", () => {
+  const newId = `hoso_${Date.now()}`;
+  hoSoData[newId] = {
+    tenHoSo: "Hồ sơ mới",
+    moTa: "Mô tả hồ sơ...",
+    editLink: "",
+    pubLink: "",
+    bangMaHoa: []
+  };
+  localStorage.setItem("hoSoData", JSON.stringify(hoSoData));
+  renderHoSoList();
 });
 
-// Hàm tạo Anki (giữ nguyên)
-function createAnki(event, hoSoName) {
-  event.stopPropagation();
-  alert(`Tạo Anki cho: ${hoSoName}`);
-}
-
-// Hàm sao chép (giữ nguyên)
-function copyCard(event, hoSoName) {
-  event.stopPropagation();
-  alert(`Sao chép hồ sơ: ${hoSoName}`);
-}
-
-// Hàm mở Google Sheet (giữ nguyên)
-function openSheet(event) {
-  event.stopPropagation();
-  alert('Mở Google Sheet');
-}
-
-// Hàm xóa hồ sơ
-function deleteCard(event, btn) {
-  event.stopPropagation();
-  if(confirm("Bạn có chắc muốn xóa hồ sơ này?")) {
-    btn.closest('.card').remove();
-  }
-}
+// 🚀 Khi load trang → render ngay
+renderHoSoList();
