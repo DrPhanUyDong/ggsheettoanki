@@ -9,30 +9,12 @@
 <body>
   <header>
     <span>📘 Hồ sơ</span>
-    <button id="addCardBtn">➕ Tạo hồ sơ mới</button>
+    <button id="taoHoSoBtn">➕ Tạo hồ sơ mới</button>
   </header>
 
   <main>
-    <div class="grid" id="cardContainer">
-      <!-- Hồ sơ mặc định -->
-      <div class="card" onclick="openDetail(event, 'Hồ sơ mặc định')">
-        <h2>Hồ sơ mặc định</h2>
-        <p>Anki được tạo bởi Đông</p>
-        <div class="card-buttons">
-          <button class="btn btn-anki" onclick="createAnki(event, 'Hồ sơ mặc định')">
-            <span class="icon">▶</span> TẠO ANKI
-          </button>
-          <button class="btn btn-copy" onclick="copyCard(event, 'Hồ sơ mặc định')">
-            <span class="icon">⧉</span> SAO CHÉP
-          </button>
-          <button class="btn btn-sheet" onclick="openSheet(event)">
-            <span class="google-g">G</span> GG SHEET
-          </button>
-          <button class="btn btn-delete" onclick="deleteCard(event, this)">
-            <span class="icon">🗑</span> XÓA
-          </button>
-        </div>
-      </div>
+    <div class="grid" id="hoSoContainer">
+      <!-- Danh sách hồ sơ sẽ render từ JS -->
     </div>
   </main>
 
